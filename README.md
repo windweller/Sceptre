@@ -14,5 +14,6 @@ Syntactical Parser: LL(1) grammar, recursive descent parsing
 <br>
 Beyond simple parsing, Sceptre will attempt to bring two additional functionalities to JavaScript: 
 
-1. Concurrency framework (JavaScript is asynchronous by nature but without a concurrency framework, it can be difficult to maintain); The main choice for Sceptre would be an Actor model instead of lock-based threading; 
-2. Functional programming. JavaScript is functional by nature but never promotes the idea of immutability. Sceptre will try to bring immutability to JavaScript as well.
+1. <b>Concurrency framework</b>: JavaScript is asynchronous by nature but without a concurrency framework, it can be difficult to maintain. The main choice for Sceptre would be an Actor model instead of lock-based threading; 
+<br>
+2. <b>Functional programming</b>: JavaScript is functional by nature but never promotes the idea of immutability. Sceptre will try to bring immutability to JavaScript as well.
