@@ -8,5 +8,5 @@ The compiler is written in C++ and we aim for the speed and universality. Sceptr
 Right now it's about 20% done. Here is some implementation details:
 
 Lexical Analyzer: Hand-coded DFA
-
+<br>
 Syntactical Parser: LL(1) grammar, recursive descent parsing
