@@ -9,5 +9,12 @@ Right now it's about 20% done. Here is some implementation details:
 
 Lexical Analyzer: Hand-coded DFA
 <br>
-
 Syntactical Parser: LL(1) grammar, recursive descent parsing
+
+<br>
+Beyond simple parsing, Sceptre will attempt to bring two additional functionalities to JavaScript: 
+
+<b>Concurrency</b>: JavaScript is asynchronous by nature but without a concurrency framework, it can be difficult to maintain. The main choice for Sceptre would be an Actor model instead of lock-based threading; 
+<br>
+
+<b>Functional programming</b>: JavaScript is functional by nature but never promotes the idea of immutability. Sceptre will try to bring immutability to JavaScript as well.
