@@ -178,6 +178,10 @@ TokenType getToken(void) {
                currentToken.TokenClass = SEMI;
                currentToken.TokenString += c;
                break;
+             case ',':
+               currentToken.TokenClass = COMMA;
+               currentToken.TokenString += c;
+               break;
              default:
                currentToken.TokenClass = ERROR;
                break;

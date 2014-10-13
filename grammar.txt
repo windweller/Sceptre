@@ -31,38 +31,55 @@ actuals -> ε | arguments
 arguments -> argument, arguments | argument
 argument -> expression
 
-
-http://hackingoff.com/compilers/predict-first-follow-set
 -------
+Modified version:
 
 program  ->  declarations
 declarations -> declaration declarations | declaration
-declaration -> var-declaration | fun-declaration
-var-declaration -> type ID ; | type ID [ NUM ] ;
-type  -> int | void
-fun-declaration -> type ID ( formals ) block
+declaration -> type ID generic-declaration
+generic-declaration -> var-declaration | fun-declaration
+var-declaration -> ; | [ NUM ] ;
+local-var-declaration -> non-void-type ID var-declaration
+type  -> non-void-type | void
+non-void-type -> int
+fun-declaration -> ( formals ) block
 formals -> void | parameters
 parameters -> parameter , parameters | parameter
-parameter -> type ID | type ID [ ]
+parameter -> non-void-type ID parameter-entity
+parameter-entity -> EPSILON | [ ]
 block -> { local-vars statements }
-local-vars  -> var-declaration local-vars | EPSILON
+local-vars  -> local-var-declaration local-vars | EPSILON
 statements -> statement statements | EPSILON
-statement -> expr-stmt | block | selection | break ; | repetition | return-stmt | $ expr
-expr-stmt -> experssion ; | ;
-selection -> if ( comparison ) statement | if ( comparison ) with-else else statement
-with-else -> if ( comparison ) with-else else with-else
+statement -> selection | other-statement
+other-statement -> expr-stmt | block | break ; | repetition | return-stmt | $ expression ;
+expr-stmt -> expression ; | ;
+
+selection -> if ( comparison ) statement else-part
+else-part -> else statement
+
 repetition -> while ( comparison ) statement
-return-stmt -> return ; | return expression ;
-expression -> var = expression | arith-expr
-var -> ID | ID [ expression ]
+return-stmt -> return return-with-expr
+return-with-expr -> expression ; | ;
+
+expression -> ID ID-expression | NUM arith-term* arith-expr* | ( expression ) arith-term* arith-expr*
+ID-expression -> var-add assignment-or-arith | call-add arith-term* arith-expr* | EPSILON
+assignment-or-arith -> = expression | arith-term* arith-expr*
+
+var -> ID var-add
+var-add -> EPSILON | [ expression ]
 comparison -> arith-expr relop arith-expr | ! ( comparison )
 relop -> <= | < | > | >= | == | !=
 arith-expr -> arith-term arith-expr* 
 arith-expr* -> + arith-term arith-expr* | - arith-term arith-expr* | EPSILON
 arith-term -> arith-factor arith-term*
 arith-term* -> * arith-factor arith-term* | / arith-factor arith-term* | EPSILON
-arith-factor -> var | call | NUM | ( expression )
-call -> ID ( actuals )
+arith-factor -> ID var-or-call | NUM | ( expression )
+var-or-call -> var-add | call-add
+call -> ID call-add 
+call-add -> ( actuals )
 actuals -> EPSILON | arguments
 arguments -> argument , arguments | argument
 argument -> expression
+
+---------
+
